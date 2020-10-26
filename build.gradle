@@ -1,0 +1,20 @@
+apply plugin: 'java';
+apply plugin: 'application';
+
+ext {
+    javaMainClass = "se.payerl.primefinder.App";
+}
+
+sourceSets.main.java.srcDirs = ['src'];
+
+application {
+    mainClassName = javaMainClass
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': javaMainClass
+    }
+}
+
+version = '1.0.0';
