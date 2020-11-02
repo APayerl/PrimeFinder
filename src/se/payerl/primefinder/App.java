@@ -21,8 +21,12 @@ public class App {
         this.file = new File("primes.data");
         file.createNewFile();
         this.saver = new FileSaver(this.file);
-        Runtime.getRuntime()
-            .addShutdownHook(new Thread(() -> this.saver.saveToFile(null)));
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                saver.saveToFile(null);
+            }
+        }));
     }
 
     public void execute() throws FileNotFoundException {
@@ -52,7 +56,7 @@ public class App {
         this.foundPrimes = getEarlierIterations();
         if(this.foundPrimes.isEmpty()) {
             this.foundPrimes.add(2l);
-            new Thread(this.saver).start();
+            this.saver.start();
             this.saver.saveToFile(2l);
         }
     }
